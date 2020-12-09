@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Agregar from '../views/Agregar.vue'
+import Peliculas from '../views/Peliculas.vue'
+import Agregar from "../views/Agregar.vue"
+import Editar from "../views/Editar.vue"
 
 Vue.use(VueRouter)
 
@@ -12,10 +14,20 @@ const routes = [
     component: Home
   },
   {
-    path: '/agregar-libro',
-    name: 'Agregar',
-    component: Agregar
+    path: '/peliculas',
+    name: 'peliculas',
+    component: Peliculas
   },
+  {
+    path:"/Agregar",
+    name:"Agregar",
+    component:Agregar
+  },
+  {
+    path:"/editar/:id",
+    name:"Editar",
+    component:Editar
+  }
 ]
 
 const router = new VueRouter({

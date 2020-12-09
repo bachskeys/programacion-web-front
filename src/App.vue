@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-    </div>
+    <b-nav>
+    <b-nav-item><router-link to="/">Inicio</router-link></b-nav-item>
+      <b-nav-item active><router-link to="/peliculas">Peliculas</router-link></b-nav-item>
+  </b-nav>
     <router-view/>
     <notifications position="bottom right"/>
   </div>

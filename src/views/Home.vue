@@ -1,15 +1,30 @@
 <template>
   <div class="home">
-    <h1>Libros</h1>
-    <b-button to="/agregar-libro" variant="primary" class="float-right mb-3">Agregar</b-button>
-    <Table :campos="campos" :items="todosLibros" :busy="getLoading">
+    <h1>Generos</h1>
+    <Table :campos="campos" :items="returnPeliculasGenero" :busy="getLoading">
     </Table>
+     <b-form-select :select-size="4" v-model="selected" :options="returnGeneros" @change="onChange(selected)">
+           </b-form-select>
+             <h1>Agregar Generos</h1>
+             <b-form inline @submit.prevent="guardarGenero" class="m-3">
+           <input 
+                v-model="genero"
+                label="Genero"
+                placeholder="Ingrese nombre de el autor del libro"
+                id="autor"
+                class="mb-7"
+           />
+           <b-button variant="primary" type="submit">
+               Guardar
+            </b-button>
+       </b-form>
   </div>
 </template>
 
 <script>
 import Table from '../components/Table'
 import { mapGetters, mapActions } from 'vuex'
+import Input from '../components/Input'
 export default {
   name: 'Home',
   components: {
@@ -17,27 +32,37 @@ export default {
   },
   data() {
     return {
+      selected:null,
       campos: [
         { key: 'id', label: 'Clave' },
-        { key: 'Autor', label: 'Autor'},
+        { key: 'director', label: 'Director'},
         { 
-          key: 'Numero_paginas', 
-          label: 'Numero de Paginas'
+          key: 'Titulo', 
+          label: 'Titulo'
           },
         { 
-          key: 'Anio_publicacion', 
-          label: 'Años de publicacion', }
-      ]
+          key: 'Anio', 
+          label: 'Año de publicacion', }
+      ],
+      genero:""
     }  
   },  
   computed: {
-    ...mapGetters(['todosLibros', 'getLoading'])
+    ...mapGetters(['returnGeneros', 'returnPeliculasGenero'])
   },
   methods: {
-    ...mapActions(['setLibros']),
+    ...mapActions(['getGeneros','getPeliculasGenero','setGenero']),
+    onChange(event){
+      this.getPeliculasGenero(event)
+    },
+    guardarGenero(){
+     this.setGenero(this.genero)
+        window.location.reload()
+    }
   },
   mounted() {
-    this.setLibros();
+    this.getGeneros();
   }
 }
 </script>
+
